@@ -39,7 +39,7 @@ jobs:
       - name: Build APK
         run: |
           cd $GITHUB_WORKSPACE
-          yes | buildozer android debug
+          buildozer android debug
       
       - name: Find APK
         run: |
