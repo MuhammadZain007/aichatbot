@@ -12,8 +12,8 @@ source.include_exts  = py,png,jpg,jpeg,kv,atlas,json
 source.exclude_dirs  = tests, __pycache__, .git
 
 # ── Dependencies ──────────────────────────────────────────────────────────────
-# kivy + kivymd for UI, requests for Groq API calls
-requirements = python3,kivy==2.3.0,kivymd==1.2.0,requests,certifi,charset-normalizer,urllib3,idna
+# plain kivy UI + requests for Groq API calls
+requirements = python3,kivy==2.3.0,requests,certifi,charset-normalizer,urllib3,idna
 
 # ── UI ────────────────────────────────────────────────────────────────────────
 orientation = portrait
