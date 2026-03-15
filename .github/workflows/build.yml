@@ -36,6 +36,11 @@ jobs:
           pip install --upgrade pip setuptools
           pip install buildozer "cython<3" virtualenv
 
+      - name: Preinstall Android SDK Components
+        run: |
+          yes | /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager --licenses
+          /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager "platform-tools" "platforms;android-33" "build-tools;34.0.0"
+
       - name: Build APK
         run: |
           cd $GITHUB_WORKSPACE

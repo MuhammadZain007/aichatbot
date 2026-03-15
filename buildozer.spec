@@ -23,9 +23,11 @@ fullscreen   = 0
 android.permissions  = android.permission.INTERNET
 android.api          = 33
 android.minapi       = 21
+android.build_tools_version = 34.0.0
 android.ndk          = 25b
 android.archs        = arm64-v8a, armeabi-v7a
 android.allow_backup = True
+android.accept_sdk_license = True
 
 # Optional: uncomment and add icon.png (512x512) in the android_app folder
 # icon.filename = %(source.dir)s/icon.png
