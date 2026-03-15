@@ -5,9 +5,6 @@ on:
     branches: [main]
   workflow_dispatch:
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -29,27 +26,40 @@ jobs:
             libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev \
             libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev \
             zlib1g-dev openjdk-17-jdk autoconf libtool pkg-config \
-            python3-pip cmake
+            python3-pip cmake wget unzip
 
-      - name: Install buildozer & python-for-android
+      - name: Install Buildozer & python-for-android
         run: |
           pip install --upgrade pip setuptools
           pip install buildozer "cython<3" virtualenv
 
-      - name: Preinstall Android SDK Components
+      - name: Install Android SDK Command Line Tools
         run: |
-          yes | /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager --licenses
-          /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager "platform-tools" "platforms;android-33" "build-tools;34.0.0"
+          mkdir -p $HOME/Android/Sdk/cmdline-tools
+          cd $HOME/Android/Sdk/cmdline-tools
+          wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -O cmdline-tools.zip
+          unzip cmdline-tools.zip
+          rm cmdline-tools.zip
+          mv cmdline-tools latest
+
+      - name: Accept Android SDK licenses
+        run: |
+          yes | $HOME/Android/Sdk/cmdline-tools/latest/bin/sdkmanager --licenses
+          $HOME/Android/Sdk/cmdline-tools/latest/bin/sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.2"
+
+      - name: Set Environment Variables
+        run: |
+          echo "export ANDROID_HOME=$HOME/Android/Sdk" >> $GITHUB_ENV
+          echo "export PATH=$PATH:$HOME/Android/Sdk/platform-tools:$HOME/Android/Sdk/cmdline-tools/latest/bin" >> $GITHUB_ENV
 
       - name: Build APK
         run: |
           cd $GITHUB_WORKSPACE
           buildozer android debug
-      
+
       - name: Find APK
         run: |
           echo "Looking for APK files..."
-          find $GITHUB_WORKSPACE -name "*.apk" -type f 2>/dev/null
           mkdir -p $GITHUB_WORKSPACE/output
           find $GITHUB_WORKSPACE -name "*.apk" -type f -exec cp {} $GITHUB_WORKSPACE/output/ \;
           ls -la $GITHUB_WORKSPACE/output/
