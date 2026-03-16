@@ -12,7 +12,7 @@ source.include_exts = py,png,jpg,jpeg,kv,atlas,json
 source.exclude_dirs = tests,__pycache__,.git
 
 # ── Dependencies ─────────────────────────────────────
-requirements = python3,kivy==2.3.0,requests
+requirements = python3,kivy==2.2.1,cython==0.29.36,requests
 
 # ── UI ───────────────────────────────────────────────
 orientation = portrait
