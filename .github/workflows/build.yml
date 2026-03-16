@@ -63,6 +63,8 @@ jobs:
       - name: Build APK
         run: |
           cd $GITHUB_WORKSPACE
+          export BUILD_CONCURRENCY=1
+          export GRADLE_OPTS="-Dkotlin.incremental=false -Dorg.gradle.daemon=false"
           buildozer android debug
 
       - name: Find APK
