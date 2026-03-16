@@ -26,12 +26,12 @@ jobs:
             libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev \
             libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev \
             zlib1g-dev openjdk-17-jdk autoconf libtool pkg-config \
-            python3-pip cmake wget unzip
+            python3-pip cmake wget unzip liblzma-dev uuid-dev
 
       - name: Install Buildozer & python-for-android
         run: |
           pip install --upgrade pip setuptools
-          pip install "buildozer==1.5.0" "python-for-android==2024.01.21" "cython<3" virtualenv
+          pip install "buildozer==1.5.0" "cython<3" virtualenv
 
       - name: Install Android SDK Command Line Tools
         run: |
