@@ -45,11 +45,19 @@ jobs:
       - name: Accept Android SDK licenses
         run: |
           yes | $HOME/Android/Sdk/cmdline-tools/latest/bin/sdkmanager --licenses
-          $HOME/Android/Sdk/cmdline-tools/latest/bin/sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.2"
+          $HOME/Android/Sdk/cmdline-tools/latest/bin/sdkmanager \
+            "platform-tools" \
+            "platforms;android-33" \
+            "build-tools;33.0.2" \
+            "ndk;25.2.9519653"
 
       - name: Set Environment Variables
         run: |
           echo "ANDROID_HOME=$HOME/Android/Sdk" >> $GITHUB_ENV
+          echo "ANDROID_SDK_ROOT=$HOME/Android/Sdk" >> $GITHUB_ENV
+          echo "ANDROIDSDK=$HOME/Android/Sdk" >> $GITHUB_ENV
+          echo "ANDROIDNDK=$HOME/Android/Sdk/ndk/25.2.9519653" >> $GITHUB_ENV
+          echo "ANDROID_NDK_HOME=$HOME/Android/Sdk/ndk/25.2.9519653" >> $GITHUB_ENV
           echo "PATH=$PATH:$HOME/Android/Sdk/platform-tools:$HOME/Android/Sdk/cmdline-tools/latest/bin" >> $GITHUB_ENV
 
       - name: Build APK
