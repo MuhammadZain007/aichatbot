@@ -24,9 +24,10 @@ android.api = 33
 android.minapi = 21
 android.build_tools_version = 33.0.2
 android.ndk = 25b
-android.archs = arm64-v8a,armeabi-v7a
+android.archs = arm64-v8a
 android.allow_backup = True
 android.accept_sdk_license = True
+p4a.branch = stable
 
 # Optional icon
 # icon.filename = %(source.dir)s/icon.png
